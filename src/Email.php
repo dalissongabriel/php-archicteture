@@ -16,12 +16,17 @@ class Email
      */
     public function __construct(string $address)
     {
+        $this->setEmail($address);
+    }
+
+    private function setEmail(string $address): self
+    {
         if(!EmailValidator::isValid($address)){
             throw new InvalidEmailException($address);
         }
         $this->address = $address;
+        return $this;
     }
-
 
     public function __toString()
     {
