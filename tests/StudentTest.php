@@ -7,6 +7,7 @@ use Alura\Architecture\Cpf;
 use Alura\Architecture\Email;
 use Alura\Architecture\Student;
 use Alura\Architecture\Utils\Exceptions\InvalidCpfException;
+use Alura\Architecture\Utils\Exceptions\InvalidEmailException;
 
 use PHPUnit\Framework\TestCase;
 
@@ -32,6 +33,12 @@ class StudentTest extends TestCase
         $this->expectException(InvalidCpfException::class);
         $student = new Student();
         $student->setCpf("11.22.33-01");
+    }
+
+    public function testMustEnsureThatTheEmailIsNotValid(){
+        $this->expectException(InvalidEmailException::class);
+        $student = new Student();
+        $student->setEmailAddress("anyinvalidemailsaddress");
     }
 
 }
