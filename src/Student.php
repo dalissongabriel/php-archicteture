@@ -8,6 +8,7 @@ class Student
     private Cpf $cpf;
     private string $name;
     private Email $email;
+    private array $phones;
 
     public function setEmailAddress(string $address): self
     {
@@ -26,9 +27,20 @@ class Student
         return $this;
     }
 
-    public function getCpf()
+    public function getCpf(): Cpf
     {
         return $this->cpf;
+
+    }
+    public function AddPhone($ddd, $number): self
+    {
+        $this->phones[] = new Phone($ddd,$number);
+        return $this;
+    }
+
+    public function getPhone(): Phone
+    {
+        return $this->phones[0];
     }
 
 }
