@@ -24,7 +24,8 @@ class Cpf
     {
         if( !CpfValidator::isValid($number) ) {
             throw new InvalidCpfException($number);
-        };
+        }
+        
         $this->number = $number;
         return $this;
     }

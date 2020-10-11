@@ -3,7 +3,9 @@
 
 namespace Alura\Architecture\Utils\Exceptions;
 
-class InvalidCpfException extends \DomainException
+use DomainException;
+
+class InvalidCpfException extends DomainException
 {
     public function __construct($value)
     {

@@ -4,7 +4,7 @@
 namespace Alura\Architecture\Helpers;
 
 
-class EmailValidator
+trait EmailValidator
 {
     public static function isValid($address): bool
     {

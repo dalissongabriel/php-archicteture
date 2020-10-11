@@ -4,7 +4,7 @@
 namespace Alura\Architecture\Helpers;
 
 
-class CpfValidator
+trait CpfValidator
 {
     public static function isValid($cpf): bool
     {
@@ -13,13 +13,13 @@ class CpfValidator
             return false;
         }
 
-        $cpf_numeros = CpfValidator::removeFormatting($cpf);
+        $numberCpf = CpfValidator::removeFormatting($cpf);
 
-        if (!CpfValidator::checkEqualNumbers($cpf_numeros)) {
+        if (!CpfValidator::checkEqualNumbers($numberCpf)) {
             return false;
         }
 
-        if (!CpfValidator::checkDigits($cpf_numeros)) {
+        if (!CpfValidator::checkDigits($numberCpf)) {
             return false;
         }
 
@@ -34,11 +34,10 @@ class CpfValidator
 
     private static function removeFormatting(string $cpf): string
     {
-        $onlyNumbers = str_replace([".", "-"], "", $cpf);
-        return  $onlyNumbers;
+        return str_replace([".", "-"], "", $cpf);
     }
 
-    private function checkEqualNumbers($cpf): bool
+    private static function checkEqualNumbers($cpf): bool
     {
         for ($i = 0; $i <= 11; $i++) {
             if (str_repeat($i, 11) == $cpf) return false;
@@ -47,7 +46,7 @@ class CpfValidator
     }
 
 
-    private function checkDigits($cpf): bool
+    private static function checkDigits($cpf): bool
     {
         $firstNumber = 0;
         $secondNumber = 0;

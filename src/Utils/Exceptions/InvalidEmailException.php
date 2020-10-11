@@ -3,7 +3,9 @@
 
 namespace Alura\Architecture\Utils\Exceptions;
 
-class InvalidEmailException extends \DomainException
+use DomainException;
+
+class InvalidEmailException extends DomainException
 {
     public function __construct($value)
     {
