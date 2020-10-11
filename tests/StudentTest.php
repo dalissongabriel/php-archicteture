@@ -12,4 +12,10 @@ class StudentTest extends TestCase
         $student->setEmailAddress("anyemail@mail.com");
         $this->assertSame("anyemail@mail.com", (string) $student->getEmailAddress());
     }
+
+    public function testMustEnsureStudentHasCpf(){
+        $student = new Student();
+        $student->setCpf("123.456.789-09");
+        $this->assertSame("123.456.789-09", (string) $student->getCpf());
+    }
 }
