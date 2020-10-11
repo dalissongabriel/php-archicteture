@@ -9,7 +9,7 @@ class Student
     private string $name;
     private Email $email;
 
-    public function setEmailAddress(string $address)
+    public function setEmailAddress(string $address): self
     {
         $this->email = new Email($address);
         return $this;
@@ -20,9 +20,10 @@ class Student
         return $this->email;
     }
 
-    public function setCpf(string $cpf)
+    public function setCpf(string $cpf): self
     {
         $this->cpf = new Cpf($cpf);
+        return $this;
     }
 
     public function getCpf()
