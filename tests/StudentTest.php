@@ -2,9 +2,12 @@
 
 namespace Alura\Tests;
 
+
 use Alura\Architecture\Cpf;
 use Alura\Architecture\Email;
 use Alura\Architecture\Student;
+use Alura\Architecture\Utils\Exceptions\InvalidCpfException;
+
 use PHPUnit\Framework\TestCase;
 
 class StudentTest extends TestCase
@@ -23,6 +26,12 @@ class StudentTest extends TestCase
         $this->assertSame("123.456.789-09", (string) $student->getCpf());
         $this->assertInstanceOf(Cpf::class, $student->getCpf());
         $this->assertInstanceOf(Student::class, $resultSet);
+    }
+
+    public function testMustEnsureThatTheCpfIsNotValid(){
+        $this->expectException(InvalidCpfException::class);
+        $student = new Student();
+        $student->setCpf("11.22.33-01");
     }
 
 }
