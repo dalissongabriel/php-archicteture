@@ -2,6 +2,9 @@
 
 namespace Alura\Architecture;
 
+use Alura\Architecture\Helpers\PhoneValidator;
+use Alura\Architecture\Utils\Exceptions\InvalidPhoneException;
+
 class Phone
 {
     private string $ddd;
@@ -14,10 +17,19 @@ class Phone
      */
     public function __construct(string $ddd, string $number)
     {
-        $this->ddd = $ddd;
-        $this->number = $number;
+        $this->setPhone($ddd,$number);
     }
 
+    private function setPhone(string $ddd ,string $number): self
+    {
+        $phone = "($ddd) $number";
+        if(!PhoneValidator::isValid($phone)){
+            throw new InvalidPhoneException($phone);
+        }
+        $this->ddd = $ddd;
+        $this->number = $number;
+        return $this;
+    }
     public function __toString(): string
     {
         return "({$this->ddd}) {$this->number}";
