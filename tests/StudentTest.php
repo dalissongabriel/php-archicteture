@@ -9,6 +9,7 @@ use Alura\Architecture\Student;
 use Alura\Architecture\Phone;
 use Alura\Architecture\Utils\Exceptions\InvalidCpfException;
 use Alura\Architecture\Utils\Exceptions\InvalidEmailException;
+use Alura\Architecture\Utils\Exceptions\InvalidPhoneException;
 
 use PHPUnit\Framework\TestCase;
 
@@ -50,5 +51,12 @@ class StudentTest extends TestCase
         $this->assertInstanceOf(Phone::class, $student->getPhone());
         $this->assertInstanceOf(Student::class, $resultSet);
     }
+
+    public function testMustEnsureThatThePhoneIsNotValid(){
+        $this->expectException(InvalidPhoneException::class);
+        $student = new Student();
+        $student->addPhone("9","988776");
+    }
+
 
 }
