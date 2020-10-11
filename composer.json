@@ -1,0 +1,24 @@
+{
+  "name": "dalissongabriel/arquitetura",
+  "description": "Curso de arquitetura com PHP da Alura",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Alisson Gabriel Dino Costa",
+      "email": "alissongabrieldino@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Alura\\Architecture\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Alura\\Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.4"
+  }
+}
