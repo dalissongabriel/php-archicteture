@@ -4,6 +4,9 @@
 namespace Alura\Architecture;
 
 
+use Alura\Architecture\Helpers\CpfValidator;
+use Alura\Architecture\Utils\Exceptions\InvalidCpfException;
+
 class Cpf
 {
     private string $number;
@@ -14,6 +17,10 @@ class Cpf
      */
     public function __construct(string $number)
     {
+        if( !CpfValidator::isValid($number) ) {
+            throw new InvalidCpfException($number);
+        };
+
         $this->number = $number;
     }
 
