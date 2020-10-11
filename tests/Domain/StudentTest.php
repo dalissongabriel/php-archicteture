@@ -3,10 +3,13 @@
 namespace Alura\Tests;
 
 
-use Alura\Architecture\Cpf;
-use Alura\Architecture\Email;
-use Alura\Architecture\Student;
-use Alura\Architecture\Phone;
+use Alura\Architecture\Domain\Share\Email;
+use Alura\Architecture\Domain\Share\Phone;
+use Alura\Architecture\Domain\Student\Cpf;
+use Alura\Architecture\Domain\Student\Student;
+
+
+
 use Alura\Architecture\Utils\Exceptions\InvalidCpfException;
 use Alura\Architecture\Utils\Exceptions\InvalidEmailException;
 use Alura\Architecture\Utils\Exceptions\InvalidPhoneException;
@@ -16,35 +19,30 @@ use PHPUnit\Framework\TestCase;
 class StudentTest extends TestCase
 {
     public function testMustEnsureStudentHasEmailAddress(){
-        $student = new Student();
-        $resultSet  = $student->setEmailAddress("anyemail@mail.com");
+        $student = Student::withEmailCpfName("anyemail@mail.com","123.456.789-09","Any name");
+
         $this->assertSame("anyemail@mail.com", (string) $student->getEmailAddress());
         $this->assertInstanceOf(Email::class, $student->getEmailAddress());
-        $this->assertInstanceOf(Student::class, $resultSet);
     }
 
     public function testMustEnsureStudentHasCpf(){
-        $student = new Student();
-        $resultSet = $student->setCpf("123.456.789-09");
+        $student = Student::withEmailCpfName("anyemail@mail.com","123.456.789-09","Any name");
         $this->assertSame("123.456.789-09", (string) $student->getCpf());
         $this->assertInstanceOf(Cpf::class, $student->getCpf());
-        $this->assertInstanceOf(Student::class, $resultSet);
     }
 
     public function testMustEnsureThatTheCpfIsNotValid(){
         $this->expectException(InvalidCpfException::class);
-        $student = new Student();
-        $student->setCpf("11.22.33-01");
+        Student::withEmailCpfName("anyemail@mail.com","11.22.33-01","Any name");
     }
 
     public function testMustEnsureThatTheEmailIsNotValid(){
         $this->expectException(InvalidEmailException::class);
-        $student = new Student();
-        $student->setEmailAddress("anyinvalidemailaddress");
+        Student::withEmailCpfName("anyinvalidemailaddress","11.22.33-01","Any name");
     }
 
     public function testMustEnsureStudentHasAnPhone(){
-        $student = new Student();
+        $student = Student::withEmailCpfName("anyemail@mail.com","123.456.789-09","Any name");
         $resultSet = $student->addPhone("49","988776543");
         $resultGetPhone = $student->getPhone();
         $this->assertSame("(49) 988776543", (string) $resultGetPhone);
@@ -54,7 +52,7 @@ class StudentTest extends TestCase
 
     public function testMustEnsureThatThePhoneIsNotValid(){
         $this->expectException(InvalidPhoneException::class);
-        $student = new Student();
+        $student = Student::withEmailCpfName("anyemail@mail.com","123.456.789-09","Any name");
         $student->addPhone("9","988776");
     }
 

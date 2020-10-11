@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Alura\Architecture;
+namespace Alura\Architecture\Domain\Share;
 
 use Alura\Architecture\Helpers\EmailValidator;
 use Alura\Architecture\Utils\Exceptions\InvalidEmailException;

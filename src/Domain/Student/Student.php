@@ -1,7 +1,9 @@
 <?php
 
+namespace Alura\Architecture\Domain\Student;
 
-namespace Alura\Architecture;
+use Alura\Architecture\Domain\Share\Email;
+use Alura\Architecture\Domain\Share\Phone;
 
 class Student
 {
@@ -9,6 +11,28 @@ class Student
     private string $name;
     private Email $email;
     private array $phones;
+
+    /**
+     * Student constructor.
+     * @param Cpf $cpf
+     * @param string $name
+     * @param Email $email
+     */
+    public function __construct(Cpf $cpf, string $name, Email $email)
+    {
+        $this->cpf = $cpf;
+        $this->name = $name;
+        $this->email = $email;
+    }
+
+    public static function withEmailCpfName(string $email, string $cpf, string $name): self
+    {
+        $emailObj = new Email($email);
+        $cpfObj = new Cpf($cpf);
+        $student = new Student($cpfObj, $name, $emailObj);
+        return $student;
+    }
+
 
     public function setEmailAddress(string $address): self
     {
