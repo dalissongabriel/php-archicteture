@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Alura\Architecture;
+namespace Alura\Architecture\Domain\Student;
 
 
 use Alura\Architecture\Helpers\CpfValidator;

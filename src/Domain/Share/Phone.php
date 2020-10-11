@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Architecture;
+namespace Alura\Architecture\Domain\Share;
 
 use Alura\Architecture\Helpers\PhoneValidator;
 use Alura\Architecture\Utils\Exceptions\InvalidPhoneException;
