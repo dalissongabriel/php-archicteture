@@ -51,14 +51,18 @@ class CollegeTest extends TestCase
         $this->assertInstanceOf(College::class, $college);
     }
 
-    public function testMustEnsureThatTheCpfIsNotValid()
-    {
-        $this->expectException(InvalidEmailException::class);
-        College::withSocialReasonFantasyNameAndEmail(
+    public function testMustEnsureCollegeHasAnPhones(){
+        $college = College::withSocialReasonFantasyNameAndEmail(
             "Alura Cursos Tecnologia Ltda",
             "Alura",
-            "alura"
-        );
+            "alura@alura.com.br")
+            ->addPhone("49","988776543")
+            ->addPhone("49","99999999");
+
+        $phones = $college->getPhones();
+
+        $this->assertSame("(49) 988776543", (string) $phones[0]);
+        $this->assertSame("(49) 99999999", (string) $phones[1]);
     }
 
     public function testMustEnsureThatThePhoneIsNotValid(){
@@ -68,5 +72,16 @@ class CollegeTest extends TestCase
             "Alura",
             "alura@alura.com.brd")
             ->addPhone("9","988776");
+    }
+
+
+    public function testMustEnsureThatTheCpfIsNotValid()
+    {
+        $this->expectException(InvalidEmailException::class);
+        College::withSocialReasonFantasyNameAndEmail(
+            "Alura Cursos Tecnologia Ltda",
+            "Alura",
+            "alura"
+        );
     }
 }
