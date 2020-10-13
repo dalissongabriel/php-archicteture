@@ -35,23 +35,9 @@ class College
         return $this->socialReason;
     }
 
-
-    public function setSocialReason(string $socialReason): College
-    {
-        $this->socialReason = $socialReason;
-        return $this;
-    }
-
-
     public function getFantasyName(): string
     {
         return $this->fantasyName;
-    }
-
-    public function setFantasyName(string $fantasyName): College
-    {
-        $this->fantasyName = $fantasyName;
-        return $this;
     }
 
     public function getEmailAddress(): Email
@@ -73,5 +59,32 @@ class College
     public function getPhones(): array
     {
         return $this->phones;
+    }
+
+    /**
+     * @param string $street
+     * @param int $number
+     * @param string $neighborhood
+     * @param string $city
+     * @param string $state
+     * @param string|null $compl
+     */
+    public function setAddress(string $street, int $number, string $neighborhood, string $city, string $state, string $compl = null): self
+    {
+        $this->address = new Address();
+        $this->address->setStreet($street);
+        $this->address->setNeighborhood($neighborhood);
+        $this->address->setCity($city);
+        $this->address->setState($state);
+        $this->address->setNumber($number);
+        if( $compl !== null ) {
+            $this->address->setCompl($compl);
+        }
+        return $this;
+    }
+
+    public function getAddress(): Address
+    {
+        return $this->address;
     }
 }
