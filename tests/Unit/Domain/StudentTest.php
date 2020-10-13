@@ -79,6 +79,20 @@ class StudentTest extends TestCase
         $this->assertInstanceOf(Student::class, $student);
     }
 
+    public function testMustEnsureStudentHasAnPhones(){
+        $student = Student::withEmailCpfName(
+            "anyemail@mail.com",
+            "123.456.789-09",
+            "Any name")
+            ->addPhone("49","988776543")
+            ->addPhone("49","99999999");
+
+        $phones = $student->getPhones();
+
+        $this->assertSame("(49) 988776543", (string) $phones[0]);
+        $this->assertSame("(49) 99999999", (string) $phones[1]);
+    }
+
     public function testMustEnsureThatThePhoneIsNotValid(){
         $this->expectException(InvalidPhoneException::class);
         Student::withEmailCpfName(
@@ -108,6 +122,41 @@ class StudentTest extends TestCase
         $this->assertSame("Any City", $student->getAddress()->getCity());
         $this->assertSame("UF", $student->getAddress()->getState());
         $this->assertSame("Any Compl", $student->getAddress()->getCompl());
+    }
+
+    public function testMustEnsureStudentRepresentationWithString()
+    {
+        $student = Student::WithEmailCpfName(
+            "anyemail@mail.com",
+            "123.456.789-09",
+            "Any name")
+            ->setAddress(
+                "Any street",
+                123,
+                "Any neighborhood",
+                "Any City",
+                "UF",
+                "Any Compl")
+            ->addPhone("49", "988240471")
+            ->addPhone("49", "99999999")
+            ->addPhone("11", "778855449");
+        $this->assertIsString((string) $student);
+
+        $this->assertStringContainsString('anyemail@mail.com',(string) $student);
+        $this->assertStringContainsString('123.456.789-09',(string) $student);
+        $this->assertStringContainsString('Any name',(string) $student);
+
+
+        $this->assertStringContainsString('Any street',(string) $student);
+        $this->assertStringContainsString('Number: 123',(string) $student);
+        $this->assertStringContainsString('Any neighborhood',(string) $student);
+        $this->assertStringContainsString('Any City',(string) $student);
+        $this->assertStringContainsString('Any Compl',(string) $student);
+        $this->assertStringContainsString('UF',(string) $student);
+
+
+        $this->assertStringContainsString('(49) 988240471',(string) $student);
+        $this->assertStringContainsString('(49) 99999999',(string) $student);
 
     }
 
