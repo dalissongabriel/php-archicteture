@@ -4,6 +4,7 @@ namespace Alura\Architecture\Domain\College;
 
 use Alura\Architecture\Domain\Share\Address;
 use Alura\Architecture\Domain\Share\Email;
+use Alura\Architecture\Domain\Share\Phone;
 
 class College
 {
@@ -25,6 +26,7 @@ class College
         $college->email = new Email($email);
         $college->socialReason = $socialReason;
         $college->fantasyName = $fantasyName;
+        $college->phones = [];
         return $college;
     }
     /**
@@ -71,5 +73,19 @@ class College
         return $this->email;
     }
 
+    public function addPhone($ddd, $number): self
+    {
+        $this->phones[] = new Phone($ddd,$number);
+        return $this;
+    }
 
+    public function getPhone(): Phone
+    {
+        return $this->phones[0];
+    }
+
+    public function getPhones(): array
+    {
+        return $this->phones;
+    }
 }
