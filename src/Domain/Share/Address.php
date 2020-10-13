@@ -121,6 +121,13 @@ class Address
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return "Address:" . PHP_EOL .
+            "\tStreet $this->street, Number: $this->number, Compl.: $this->compl,  Neighborhood: $this->neighborhood -  " .
+            "City: $this->city/$this->state";
+    }
+
 
 
 }

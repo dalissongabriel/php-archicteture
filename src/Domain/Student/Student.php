@@ -88,7 +88,7 @@ class Student
         return $this->cpf;
 
     }
-    public function AddPhone($ddd, $number): self
+    public function addPhone($ddd, $number): self
     {
         $this->phones[] = new Phone($ddd,$number);
         return $this;
@@ -97,6 +97,30 @@ class Student
     public function getPhone(): Phone
     {
         return $this->phones[0];
+    }
+
+    public function getPhones(): array
+    {
+        return $this->phones;
+    }
+
+    public function __toString(): string
+    {
+        $phoneList = "Phones: " . PHP_EOL;
+        /**
+         * Phone $phone
+         */
+        foreach($this->phones as $phone) {
+            $phoneList .=  "\t" . (string) $phone . PHP_EOL;
+        }
+
+        return
+        "Student: " .PHP_EOL.
+        "\tName: $this->name" .PHP_EOL.
+        "\tE-mail: $this->email" .PHP_EOL.
+        "\tCpf: $this->cpf" . PHP_EOL .
+        (string) $this->getAddress() . PHP_EOL .
+        $phoneList;
     }
 
 }
