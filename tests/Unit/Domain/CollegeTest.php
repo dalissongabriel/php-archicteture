@@ -107,4 +107,40 @@ class CollegeTest extends TestCase
         $this->assertSame("UF", $college->getAddress()->getState());
         $this->assertSame("Any Compl", $college->getAddress()->getCompl());
     }
+
+    public function testMustEnsureCollegeRepresentedWithString()
+    {
+        $college = College::withSocialReasonFantasyNameAndEmail(
+            "Alura Cursos Tecnologia Ltda",
+            "Alura",
+            "alura@alura.com.br")
+            ->setAddress(
+                "Any street",
+                123,
+                "Any neighborhood",
+                "Any City",
+                "UF",
+                "Any Compl")
+            ->addPhone("49", "988240471")
+            ->addPhone("49", "99999999")
+            ->addPhone("11", "778855449");
+        $this->assertIsString((string) $college);
+
+        $this->assertStringContainsString('alura@alura.com.br',(string) $college);
+        $this->assertStringContainsString('Alura Cursos Tecnologia Ltda',(string) $college);
+        $this->assertStringContainsString('Alura',(string) $college);
+
+
+        $this->assertStringContainsString('Any street',(string) $college);
+        $this->assertStringContainsString('Number: 123',(string) $college);
+        $this->assertStringContainsString('Any neighborhood',(string) $college);
+        $this->assertStringContainsString('Any City',(string) $college);
+        $this->assertStringContainsString('Any Compl',(string) $college);
+        $this->assertStringContainsString('UF',(string) $college);
+
+
+        $this->assertStringContainsString('(49) 988240471',(string) $college);
+        $this->assertStringContainsString('(49) 99999999',(string) $college);
+    }
+
 }
