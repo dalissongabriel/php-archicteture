@@ -2,6 +2,7 @@
 
 namespace Alura\Architecture\Domain\Student;
 
+use Alura\Architecture\Domain\Share\Address;
 use Alura\Architecture\Domain\Share\Email;
 use Alura\Architecture\Domain\Share\Phone;
 
@@ -11,28 +12,59 @@ class Student
     private string $name;
     private Email $email;
     private array $phones;
+    private Address $address;
+
 
     /**
-     * Student constructor.
+     * Student named constructor  .
      * @param Cpf $cpf
      * @param string $name
      * @param Email $email
      */
-    public function __construct(Cpf $cpf, string $name, Email $email)
-    {
-        $this->cpf = $cpf;
-        $this->name = $name;
-        $this->email = $email;
-    }
-
     public static function withEmailCpfName(string $email, string $cpf, string $name): self
     {
-        $emailObj = new Email($email);
-        $cpfObj = new Cpf($cpf);
-        $student = new Student($cpfObj, $name, $emailObj);
+        $student = new Student();
+        $student
+            ->setEmailAddress(new Email($email))
+            ->setCpf(new Cpf($cpf))
+            ->setName($name);
         return $student;
     }
 
+    /**
+     * @param string $street
+     * @param int $number
+     * @param string $neighborhood
+     * @param string $city
+     * @param string $state
+     * @param string|null $compl
+     */
+    public function setAddress(string $street, int $number, string $neighborhood, string $city, string $state, string $compl = null): self
+    {
+        $this->address = new Address();
+        $this->address->setStreet($street);
+        $this->address->setNeighborhood($neighborhood);
+        $this->address->setCity($city);
+        $this->address->setState($state);
+        $this->address->setNumber($number);
+        if( $compl !== null ) {
+            $this->address->setCompl($compl);
+        }
+        return $this;
+
+    }
+
+    public function getAddress(): Address
+    {
+        return $this->address;
+    }
+
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+        return $this;
+    }
 
     public function setEmailAddress(string $address): self
     {
