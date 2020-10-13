@@ -157,7 +157,6 @@ class StudentTest extends TestCase
 
         $this->assertStringContainsString('(49) 988240471',(string) $student);
         $this->assertStringContainsString('(49) 99999999',(string) $student);
-
     }
 
 }

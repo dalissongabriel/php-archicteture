@@ -106,12 +106,15 @@ class Student
 
     public function __toString(): string
     {
-        $phoneList = "Phones: " . PHP_EOL;
-        /**
-         * Phone $phone
-         */
-        foreach($this->phones as $phone) {
-            $phoneList .=  "\t" . (string) $phone . PHP_EOL;
+        $phoneList ="";
+        if($this->phones) {
+            $phoneList = "Phones: " . PHP_EOL;
+            /**
+             * Phone $phone
+             */
+            foreach($this->phones as $phone) {
+                $phoneList .=  "\t" . (string) $phone . PHP_EOL;
+            }
         }
 
         return
