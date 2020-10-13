@@ -1,16 +1,13 @@
 <?php
 
-
 namespace Alura\Tests;
-
 
 use Alura\Architecture\Domain\College\College;
 
-
 use Alura\Architecture\Domain\Share\Phone;
 use Alura\Architecture\Utils\Exceptions\InvalidEmailException;
-
 use Alura\Architecture\Utils\Exceptions\InvalidPhoneException;
+
 use PHPUnit\Framework\TestCase;
 
 class CollegeTest extends TestCase
@@ -28,13 +25,24 @@ class CollegeTest extends TestCase
         $this->assertSame("alura@alura.com.br",(string) $college->getEmailAddress());
     }
 
+    public function testMustEnsureThatTheEmailIsNotValid(){
+        $this->expectException(InvalidEmailException::class);
+        College::withSocialReasonFantasyNameAndEmail(
+            "Alura Cursos Tecnologia Ltda",
+            "Alura",
+            "alura@"
+        );
+    }
+
     public function testMustEnsureCollegeHasPhone()
     {
         $college = College::withSocialReasonFantasyNameAndEmail(
             "Alura Cursos Tecnologia Ltda",
             "Alura",
             "alura@alura.com.br")
+            ->addPhone("49","35529988")
             ->addPhone("49","35529988");
+        ;
         $resultGetPhone = $college->getPhone();
 
 
