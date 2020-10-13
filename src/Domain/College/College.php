@@ -87,4 +87,26 @@ class College
     {
         return $this->address;
     }
+
+    public function __toString()
+    {
+        $phoneList = "";
+        if($this->phones) {
+            $phoneList = "Phones: " . PHP_EOL;
+            /**
+             * Phone $phone
+             */
+            foreach($this->phones as $phone) {
+                $phoneList .=  "\t" . (string) $phone . PHP_EOL;
+            }
+        }
+
+        return "College" .PHP_EOL.
+            "\tFantasy name: $this->fantasyName" . PHP_EOL .
+            "\tSocial Reason: $this->socialReason" . PHP_EOL .
+            "\tE-mail: $this->email " . PHP_EOL .
+            (string) $this->getAddress() . PHP_EOL .
+            $phoneList;
+
+    }
 }
