@@ -4,6 +4,7 @@ namespace Alura\Tests;
 
 use Alura\Architecture\Domain\College\College;
 
+use Alura\Architecture\Domain\Share\Address;
 use Alura\Architecture\Domain\Share\Phone;
 use Alura\Architecture\Utils\Exceptions\InvalidEmailException;
 use Alura\Architecture\Utils\Exceptions\InvalidPhoneException;
@@ -70,7 +71,7 @@ class CollegeTest extends TestCase
         College::withSocialReasonFantasyNameAndEmail(
             "Alura Cursos Tecnologia Ltda",
             "Alura",
-            "alura@alura.com.brd")
+            "alura@alura.com.br")
             ->addPhone("9","988776");
     }
 
@@ -83,5 +84,27 @@ class CollegeTest extends TestCase
             "Alura",
             "alura"
         );
+    }
+
+    public function testMustEnsureCollegeHasAnAddress() {
+        $college =  College::withSocialReasonFantasyNameAndEmail(
+            "Alura Cursos Tecnologia Ltda",
+            "Alura",
+            "alura@alura.com.br")
+            ->setAddress(
+                "Any street",
+                123,
+                "Any neighborhood",
+                "Any City",
+                "UF",
+                "Any Compl");
+
+        $this->assertInstanceOf(College::class, $college);
+        $this->assertInstanceOf(Address::class, $college->getAddress() );
+        $this->assertSame("Any street", $college->getAddress()->getStreet());
+        $this->assertSame("Any neighborhood", $college->getAddress()->getNeighborhood());
+        $this->assertSame("Any City", $college->getAddress()->getCity());
+        $this->assertSame("UF", $college->getAddress()->getState());
+        $this->assertSame("Any Compl", $college->getAddress()->getCompl());
     }
 }
