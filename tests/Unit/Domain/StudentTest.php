@@ -6,7 +6,7 @@ namespace Alura\Tests;
 use Alura\Architecture\Domain\Share\Address;
 use Alura\Architecture\Domain\Share\Email;
 use Alura\Architecture\Domain\Share\Phone;
-use Alura\Architecture\Domain\Student\Cpf;
+use Alura\Architecture\Domain\Share\Cpf;
 use Alura\Architecture\Domain\Student\Student;
 use Alura\Architecture\Domain\Student\StudentBuilder;
 
