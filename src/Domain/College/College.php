@@ -2,6 +2,7 @@
 
 namespace Alura\Architecture\Domain\College;
 
+use Alura\Architecture\Domain\Course\Course;
 use Alura\Architecture\Domain\Share\Address;
 use Alura\Architecture\Domain\Share\Email;
 use Alura\Architecture\Domain\Share\Phone;
@@ -13,6 +14,7 @@ class College
     private Email $email;
     private Address $address;
     private array $phones;
+    private array $courses;
 
     /**
      * College named constructor.
@@ -108,5 +110,16 @@ class College
             (string) $this->getAddress() . PHP_EOL .
             $phoneList;
 
+    }
+
+    public function addCourse(Course $course): self
+    {
+        $this->courses[] = $course;
+        return $this;
+    }
+
+    public function getCourses(): array
+    {
+        return $this->courses;
     }
 }
