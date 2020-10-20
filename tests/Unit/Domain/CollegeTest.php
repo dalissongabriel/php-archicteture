@@ -4,6 +4,7 @@ namespace Alura\Tests;
 
 use Alura\Architecture\Domain\College\College;
 
+use Alura\Architecture\Domain\Course\Course;
 use Alura\Architecture\Domain\Share\Address;
 use Alura\Architecture\Domain\Share\Phone;
 use Alura\Architecture\Utils\Exceptions\InvalidEmailException;
@@ -141,6 +142,26 @@ class CollegeTest extends TestCase
 
         $this->assertStringContainsString('(49) 988240471',(string) $college);
         $this->assertStringContainsString('(49) 99999999',(string) $college);
+    }
+
+    public function testMustEnsureThatACollegeHasCourses() {
+        $course1 = new Course("Engenharia de Requisitos");
+        $course2 = new Course("React Components");
+
+
+        $college = College::withSocialReasonFantasyNameAndEmail(
+            "Alura Cursos Online de Tecnologia Ltda",
+            "Alura",
+            "alura@alura.com.br"
+        )->addCourse($course1)
+        ->addCourse($course2);
+
+        $this->assertInstanceOf(College::class,$college);
+        foreach ($college->getCourses() as $course) {
+            $this->assertInstanceOf(Course::class,$course);
+        }
+        $this->assertCount(2,$college->getCourses());
+
     }
 
 }
